@@ -6,34 +6,37 @@ class PullDownImportance(tk.Frame):
     # Pulldown for input or change for Importance
     def __init__(self,master = None):
         tk.Frame.__init__(self,master)
-        labelTop = tk.Label(self,
+        label = tk.Label(self,
                         text = "重要度")
-        labelTop.grid(column=0,row=0)
-        comboExample = ttk.Combobox(self,
+        label.grid(column=0,row=0)
+        self.combo = ttk.Combobox(self,
                         values=[
+                            "",
                             "高",
-                            "低"])
-        comboExample.grid(column=0,row=1)
-        comboExample.current(1)
+                            "低"],
+                        width=5)
+        self.combo.grid(column=0,row=1)
+        self.combo.current(0)
 
 class PulldownTime(tk.Frame):
     # Pulldown for input or change for Time
     def __init__(self,master = None):
         tk.Frame.__init__(self,master)
-        labelTop = tk.Label(self,
+        label = tk.Label(self,
                         text = "時間")
-        labelTop.grid(column=0,row=0)
-        comboExample = ttk.Combobox(self,
-                        values=["7:30","8:00","8:30","9:00",
+        label.grid(column=0,row=0)
+        self.combo= ttk.Combobox(self,
+                        values=["","7:30","8:00","8:30","9:00",
                                 "9:30","10:00","10:30","11:00",
                                 "11:30","12:00","12:30","13:00",
                                 "13:30","14:00","14:30","15:00",
                                 "15:30","16:00","16:30","17:00",
                                 "17:30","18:00","18:30","19:00",
                                 "19:30","20:00","20:30","21:00",
-                                "21:30","22:00","22:30","23:00"])
-        comboExample.grid(column=0,row=1)
-        comboExample.current(1)
+                                "21:30","22:00"],
+                        width=5)
+        self.combo.grid(column=0,row=1)
+        self.combo.current(0)
 
 if __name__ =="__main__":
     master = tk.Tk()
