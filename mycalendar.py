@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*-
 import tkinter as tk
+import copy
 
 # カレンダーを作成するフレームクラス
 class MyCalendar(tk.Frame):
-    def __init__(self,master=None):
+    def __init__(self,master=None,entrybox=None):
         tk.Frame.__init__(self,master)
         import datetime
         # 現在の日付を取得
@@ -12,6 +13,8 @@ class MyCalendar(tk.Frame):
         self.year = now.year
         self.month = now.month
 
+        #ボタンが押されたときに埋めるエントリーボックスの指示
+        self.entry_box = entrybox
         # frame_top部分の作成
         frame_top = tk.Frame(self)
         frame_top.pack(pady=5)
@@ -50,11 +53,16 @@ class MyCalendar(tk.Frame):
 
         # 日付部分を作成するメソッドの呼び出し
         self.create_calendar(self.year,self.month)
+    
+    def enter_box(self,date):
+        def enter():
+            self.entry_box.delete(0,tk.END)
+            enter_text = str(self.year) + "/"+str(self.month) + "/" +str(date)
+            self.entry_box.insert(tk.END,enter_text)
+        return enter
 
     def create_calendar(self,year,month):
-        "指定した年(year),月(month)のカレンダーウィジェットを作成する"
-
-        # ボタンがある場合には削除する（初期化）
+        # ボタンがある場合には削除
         try:
             for key,item in self.day.items():
                 item.destroy()
@@ -76,7 +84,9 @@ class MyCalendar(tk.Frame):
             try:
                 # 日付が0でなかったら、ボタン作成
                 if days[r][c] != 0:
-                    self.day[i] = d_button(self.frame_calendar,text = days[r][c])
+                    date = days[r][c]
+                    self.day[i] = tk.Button(self.frame_calendar,text = date,
+                        font=("",14),height=2, width=4, relief="flat",command=self.enter_box(date))
                     self.day[i].grid(column=c,row=r)
             except:
                 """
@@ -103,16 +113,15 @@ class MyCalendar(tk.Frame):
         # 日付部分を作成するメソッドの呼び出し
         self.create_calendar(self.year,self.month)
 
-# デフォルトのボタンクラス
 class d_button(tk.Button):
     def __init__(self,master=None,cnf={},**kw):
         tk.Button.__init__(self,master,cnf,**kw)
         self.configure(font=("",14),height=2, width=4, relief="flat")
             
-# ルートフレームの定義      
 if __name__ =="__main__":
     master = tk.Tk()
     master.title("Calendar App")
-    m_c = MyCalendar(master)
+    a = ""
+    m_c = MyCalendar(master,a)
     m_c.pack()
     master.mainloop()

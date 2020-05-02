@@ -34,17 +34,20 @@ class Entry(tk.Frame):
         self.importance.combo.delete(0,tk.END)
         place = self.place.txt.get()
         self.place.txt.delete(0,tk.END)
-        self.tree.tree.insert("","end",
+        ind = self.tree.tree.insert("","end",
                     values=(thing,
                             date,
                             time,
                             importance,
                             place)
                     )
+        self.tree.index_list.append(ind)
+
     def _del_treeview(self):
         try:
             selected = self.tree.tree.selection()[0]
             self.tree.tree.delete(selected)
+            self.tree.index_list.remove(selected)
         except:
             pass
     
