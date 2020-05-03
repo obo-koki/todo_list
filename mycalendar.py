@@ -57,7 +57,13 @@ class MyCalendar(tk.Frame):
     def enter_box(self,date):
         def enter():
             self.entry_box.delete(0,tk.END)
-            enter_text = str(self.year) + "/"+str(self.month) + "/" +str(date)
+            month_str = str(self.month)
+            date_str = str(date)
+            if self.month < 10:
+                month_str = "0"+ month_str
+            if date < 10:
+                date_str = "0"+date_str
+            enter_text = str(self.year) + "/"+ month_str + "/" + date_str
             self.entry_box.insert(tk.END,enter_text)
         return enter
 

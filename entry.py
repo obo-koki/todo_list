@@ -2,9 +2,10 @@ import tkinter as tk
 from entrybox import EntryBoxPlace,EntryBoxDate,EntryBoxThing
 from pulldown import PulldownTime,PullDownImportance
 from treeview import TreeView
+import datetime
 
 class Entry(tk.Frame):
-    def __init__(self,master=None):
+    def __init__(self,master, listbox, schedule):
         tk.Frame.__init__(self,master)
         self.tree = TreeView(self)
         self.tree.pack()
@@ -22,8 +23,11 @@ class Entry(tk.Frame):
         self.add_btn.pack()
         self.del_btn = tk.Button(self,text="削除",command=self._del_treeview)
         self.del_btn.pack()
+        self.listbox = listbox
+        self.schedule = schedule
     
     def _add_treeview(self):
+        #ツリービューへの追加
         thing = self.thing.txt.get()
         self.thing.txt.delete(0, tk.END)
         date = self.date.txt.get()
@@ -41,13 +45,29 @@ class Entry(tk.Frame):
                             importance,
                             place)
                     )
-        self.tree.index_list.append(ind)
+        self.tree.index_list.append(ind)#ツリービュー上の識別子の保存
+        #List Boxへの追加
+        year = int(date[0:4])
+        month = int(date[5:7])
+        date_ = int(date[8:10])
+        hour = int(time[0:2])
+        minute = int(time[3:5])
+        deadline = datetime.datetime(year,month,date_,hour,minute)
+        self.listbox.add_list(thing,deadline,importance)
+
+        #Scheduleへの追加
+        self.schedule.add_list(thing)
+
 
     def _del_treeview(self):
         try:
+            #ツリービューの削除
             selected = self.tree.tree.selection()[0]
+            thing = self.tree.tree.item(selected)["values"][0]
             self.tree.tree.delete(selected)
             self.tree.index_list.remove(selected)
+            self.schedule.delete_list(thing)
+
         except:
             pass
     
