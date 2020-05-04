@@ -8,6 +8,15 @@ from tkinter import messagebox
 import pickle
 import datetime
 
+class ToDo:
+    def __init__(self,ID,thing,date,time,importance,place):
+        self.ID = ID
+        self.thing = thing
+        self.date = date
+        self.time = time
+        self.importance = importance
+        self.place = place
+
 class Main(tk.Frame):
     def __init__(self,master=None):
         tk.Frame.__init__(self,master)
@@ -23,6 +32,7 @@ class Main(tk.Frame):
         self.notebook.add(self.listbox,text="リスト表",padding=3)
         self.notebook.add(self.sche,text="今日のスケジュール",padding=3)
         self.notebook.pack()
+        self.to_do_list = []
 
         #ファイルの読み込み
         #try:
@@ -36,11 +46,14 @@ class Main(tk.Frame):
 
             #List Boxへの追加->日付と重要度による場合分け
             #時間の抽出
-            year = int(value[1][0:4])
-            month = int(value[1][5:7])
-            date = int(value[1][8:10])
-            hour = int(value[2][0:2])
-            minute = int(value[2][3:5])
+            year_month_date =value[1].split("/")
+            hour_minute =value[2].split(":") 
+            
+            year = int(year_month_date[0])
+            month = int(year_month_date[1])
+            date = int(year_month_date[2])
+            hour = int(hour_minute[0])
+            minute = int(hour_minute[1])
             deadline = datetime.datetime(year,month,date,hour,minute)
             #重要度の抽出
             importance = value[3]
@@ -52,6 +65,7 @@ class Main(tk.Frame):
         f.close()
         #except:
             #print ("保存ファイルが存在しません")
+        print (self.listbox.up_left.listbox.get(0,9999))
 
 if __name__ =="__main__":
     master = tk.Tk()

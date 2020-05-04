@@ -66,7 +66,9 @@ class Entry(tk.Frame):
             thing = self.tree.tree.item(selected)["values"][0]
             self.tree.tree.delete(selected)
             self.tree.index_list.remove(selected)
+            #Scheduleの削除
             self.schedule.delete_list(thing)
+            #ListBoxの削除 TODO
 
         except:
             pass
