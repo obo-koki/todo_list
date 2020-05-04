@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 import tkinter as tk
 import copy
+import datetime
 
 # カレンダーを作成するフレームクラス
 class MyCalendar(tk.Frame):
     def __init__(self,master=None,entrybox=None):
         tk.Frame.__init__(self,master)
-        import datetime
         # 現在の日付を取得
         now = datetime.datetime.now()
         # 現在の年と月を属性に追加
@@ -84,16 +84,22 @@ class MyCalendar(tk.Frame):
         # 日付ボタンを格納する変数をdict型で作成
         self.day = {}
         # for文を用いて、日付ボタンを生成
+        now = datetime.datetime.now()
         for i in range(0,42):
             c = i - (7 * int(i/7))
             r = int(i/7)
             try:
-                # 日付が0でなかったら、ボタン作成
+            # 日付が0でなかったら、ボタン作成
                 if days[r][c] != 0:
                     date = days[r][c]
-                    self.day[i] = tk.Button(self.frame_calendar,text = date,
-                        font=("",14),height=2, width=4, relief="flat",command=self.enter_box(date))
-                    self.day[i].grid(column=c,row=r)
+                    if year == now.year and month == now.month and now.day == date:
+                        self.day[i] = tk.Button(self.frame_calendar,text = date,background="SkyBlue1",
+                            font=("",14),height=2, width=4, relief="flat",command=self.enter_box(date))
+                        self.day[i].grid(column=c,row=r)
+                    else:
+                        self.day[i] = tk.Button(self.frame_calendar,text = date,
+                            font=("",14),height=2, width=4, relief="flat",command=self.enter_box(date))
+                        self.day[i].grid(column=c,row=r)
             except:
                 """
                 月によっては、i=41まで日付がないため、日付がないiのエラー回避が必要

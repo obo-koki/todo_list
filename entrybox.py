@@ -15,7 +15,7 @@ class EntryBoxPlace(tk.Frame):
         label = tk.Label(self,
                         text="場所")
         label.grid(column=0,row=0)
-        self.txt = tk.Entry(self,width=30)
+        self.txt = tk.Entry(self,width=20)
         self.txt.grid(column=0,row=1)
 
 class EntryBoxDate(tk.Frame):

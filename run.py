@@ -38,26 +38,13 @@ class Main(tk.Frame):
         #try:
         f = open("list.txt","rb")
         to_do_list = pickle.load(f)
-        print (to_do_list)
         for value in to_do_list:
             #一番上のEntry Boxへの追加
             ind = self.entry.tree.tree.insert("","end",values=value)
             self.entry.tree.index_list.append(ind)
 
-            #List Boxへの追加->日付と重要度による場合分け
-            #時間の抽出
-            year_month_date =value[1].split("/")
-            hour_minute =value[2].split(":") 
-            
-            year = int(year_month_date[0])
-            month = int(year_month_date[1])
-            date = int(year_month_date[2])
-            hour = int(hour_minute[0])
-            minute = int(hour_minute[1])
-            deadline = datetime.datetime(year,month,date,hour,minute)
-            #重要度の抽出
-            importance = value[3]
-            self.listbox.add_list(value[0],deadline,importance)
+            #List Boxへの追加
+            self.listbox.add_list(value[0],value[1],value[2],value[3])
 
             #Scheduleへの追加
             self.sche.add_list(value[0])
@@ -65,7 +52,6 @@ class Main(tk.Frame):
         f.close()
         #except:
             #print ("保存ファイルが存在しません")
-        print (self.listbox.up_left.listbox.get(0,9999))
 
 if __name__ =="__main__":
     master = tk.Tk()

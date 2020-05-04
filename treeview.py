@@ -13,11 +13,11 @@ class TreeView(tk.Frame):
         self.tree["show"] = "headings"
         self.tree["selectmode"] = "extended"
         # 各列の設定(インデックス,オプション(今回は幅を指定))
-        self.tree.column(1,width=187)
+        self.tree.column(1,width=200)
         self.tree.column(2,width=70)
         self.tree.column(3,width=50)
         self.tree.column(4,width=50)
-        self.tree.column(5,width=187)
+        self.tree.column(5,width=124)
         # 各列のヘッダー設定(インデックス,テキスト)
         self.tree.heading(1,text="やること")
         self.tree.heading(2,text="日付")

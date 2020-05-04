@@ -47,28 +47,23 @@ class Entry(tk.Frame):
                     )
         self.tree.index_list.append(ind)#ツリービュー上の識別子の保存
         #List Boxへの追加
-        year = int(date[0:4])
-        month = int(date[5:7])
-        date_ = int(date[8:10])
-        hour = int(time[0:2])
-        minute = int(time[3:5])
-        deadline = datetime.datetime(year,month,date_,hour,minute)
-        self.listbox.add_list(thing,deadline,importance)
+        self.listbox.add_list(thing,date,time,importance)
 
         #Scheduleへの追加
         self.schedule.add_list(thing)
-
 
     def _del_treeview(self):
         try:
             #ツリービューの削除
             selected = self.tree.tree.selection()[0]
-            thing = self.tree.tree.item(selected)["values"][0]
+            value = self.tree.tree.item(selected)["values"]
+            thing = value[0]
             self.tree.tree.delete(selected)
             self.tree.index_list.remove(selected)
             #Scheduleの削除
             self.schedule.delete_list(thing)
             #ListBoxの削除 TODO
+            self.listbox.delete(value)
 
         except:
             pass
