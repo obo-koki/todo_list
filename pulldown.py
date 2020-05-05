@@ -14,7 +14,8 @@ class PullDownImportance(tk.Frame):
                             "",
                             "高",
                             "低"],
-                        width=5)
+                        width = 6
+                        )
         self.combo.grid(column=0,row=1)
         self.combo.current(0)
 

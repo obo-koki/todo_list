@@ -17,7 +17,7 @@ class TreeView(tk.Frame):
         self.tree.column(2,width=70)
         self.tree.column(3,width=50)
         self.tree.column(4,width=50)
-        self.tree.column(5,width=124)
+        self.tree.column(5,width=120)
         # 各列のヘッダー設定(インデックス,テキスト)
         self.tree.heading(1,text="やること")
         self.tree.heading(2,text="日付")
