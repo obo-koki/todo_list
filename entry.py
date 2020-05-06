@@ -123,7 +123,6 @@ class Entry(tk.Frame):
 
             #ツリービューの変更
             self.tree.tree.item(selected,values = new_values)
-            print (self.tree.tree.item(selected))
 
             #Scheduleの追加
             self.schedule.add_list(thing)
